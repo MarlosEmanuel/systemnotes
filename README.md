@@ -12,7 +12,7 @@ Projeto totalmente para fins de estudos.
 
 ## Variaveis de ambiente
 
-Crie uma viavel de ambiente *DB_MONGO_URI* com sua URI para o banco de dados.
+Crie uma variável de ambiente *DB_MONGO_URI* com sua URI para o banco de dados.
 
 ## Para rodar
 Basta clonar o repositorio e inserir o comando
