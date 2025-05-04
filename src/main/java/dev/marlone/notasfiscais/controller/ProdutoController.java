@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/produtos")
 @AllArgsConstructor
@@ -16,16 +17,31 @@ public class ProdutoController {
 
     private ProdutoService produtoService;
 
+    //Listar
     @GetMapping
     @Operation(summary = "Listar produtos", description = "Retorna todos os produtos cadastrados")
     public ResponseEntity<?> listar() {
         return produtoService.listar();
     }
 
+    //Criar
     @PostMapping
     @Operation(summary = "Cria produtos", description = "Cria novos produtos")
     public ResponseEntity<?> salvar(@RequestBody ProdutoRequest produtoRequest) {
         return produtoService.criar(produtoRequest);
     }
 
+    //Deletar
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Deleta um produto", description = "endpoint para deletar um produto com base no ID")
+    public ResponseEntity<?> deletar(@PathVariable String id){
+        return produtoService.deleteById(id);
+    }
+
+    //Put
+    @PutMapping("/{id}")
+    @Operation(summary = "Atualizar um produto", description = "enpoint para atualizar um produto com base no ID")
+    public ResponseEntity<?> atualizar(@PathVariable String id, @RequestBody ProdutoRequest produtoRequest){
+        return produtoService.put(id,produtoRequest);
+    }
 }
