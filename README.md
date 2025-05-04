@@ -1,7 +1,9 @@
 
 # API para Cadastrar Produtos e Gerar Nota Fiscal
 
-Projeto totalmente para fins de estudos.
+Esta API cria e gerencia produtos e clientes utilizando o MongoDB como Banco de Dados. Simula uma aplicação de gerenciamento de estoque.
+
+_Projeto totalmente para fins de estudos._
 
 
 ## Requisitos
@@ -20,5 +22,3 @@ Basta clonar o repositorio e inserir o comando
 ```bash
   mvn sprig-boot:run
 ```
-
-
