@@ -17,15 +17,24 @@ public class ClienteController {
 
     private ClienteService clienteService;
 
+    //Listar
     @GetMapping
     @Operation(summary = "Listar Clientes", description = "Retorna todos os clientes cadastrados")
     public ResponseEntity<?> listar() {
         return clienteService.read();
     }
 
+    //Criar
     @PostMapping
     @Operation(summary = "Cadastrar Clientes", description = "Cria os clientes")
     public ResponseEntity<?> salvar(@RequestBody ClienteRequest clienteRequest) {
         return clienteService.create(clienteRequest);
+    }
+
+    //Deletar
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Deletar Cliente", description = "Deleta um cliente com base no ID")
+    public ResponseEntity<?> deletar(@PathVariable String id){
+        return clienteService.deleteById(id);
     }
 }

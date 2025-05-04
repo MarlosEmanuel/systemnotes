@@ -38,6 +38,15 @@ public class ClienteService {
                 .collect(Collectors.toList()));
     }
 
+    //Delete Usuarios
+    public ResponseEntity<?> deleteById(String id){
+        if (clienteRepository.findById(id).isPresent()){
+            clienteRepository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    }
+
     public boolean verificarSeClienteExiste(String id){
         return clienteRepository.existsById(id);
     }

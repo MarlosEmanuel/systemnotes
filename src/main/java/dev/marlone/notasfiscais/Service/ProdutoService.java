@@ -40,6 +40,15 @@ public class ProdutoService {
                 .collect(Collectors.toList()));
     }
 
+    //Deletar
+    public ResponseEntity<?> deleteById(String id){
+        if (produtoRepository.findById(id).isPresent()){
+            produtoRepository.deleteById(id);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     public boolean verificaSeProdutoExiste(String id){
         return produtoRepository.existsById(id);
     }
