@@ -30,7 +30,7 @@ public class NotaFiscalService {
         if (!verificaTodosOsItens(request.items())) {
             return ResponseEntity.badRequest().body("Produto inválido na nota.");
         }
-        if (!clienteService.verificarSeClienteExiste(request.clienteId())) {
+        if (clienteService.verificarSeClienteExiste(request.clienteId())) {
             return ResponseEntity.badRequest().body("Cliente não encontrado.");
         }
         for (ItemNotaFiscalRequest item : request.items()) {

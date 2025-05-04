@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,8 +48,37 @@ public class ClienteService {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
+    //PUT
+    public ResponseEntity<?> update(String id, ClienteRequest request){
+        if (verificarSeClienteExiste(id)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        if (request == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao criar cliente !!");
+        }
+        Optional<ClienteModel> cliente = clienteRepository.findById(id);
+        if (cliente.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        ClienteModel clienteModel = cliente.get();
+
+        if (request.nome() != null && !request.nome().isEmpty()){
+            clienteModel.setNome(request.nome());
+        }
+        if (request.email() != null && !request.email().isEmpty()){
+            clienteModel.setEmail(request.email());
+        }
+        if (request.endereco() != null && !request.endereco().isEmpty()){
+            clienteModel.setEndereco(request.endereco());
+        }
+        if (request.cpfOuCnpj() != null && !request.cpfOuCnpj().isEmpty()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(clienteRepository.save(clienteModel));
+    }
+
     public boolean verificarSeClienteExiste(String id){
-        return clienteRepository.existsById(id);
+        return clienteRepository.findById(id).isEmpty();
     }
 
 }

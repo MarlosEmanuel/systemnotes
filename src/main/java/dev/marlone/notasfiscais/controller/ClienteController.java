@@ -37,4 +37,12 @@ public class ClienteController {
     public ResponseEntity<?> deletar(@PathVariable String id){
         return clienteService.deleteById(id);
     }
+
+    //Put
+    @PutMapping("/{id}")
+    @Operation(summary = "Atualizar Cliente", description = "Atualiza um cliente com base no ID")
+    public ResponseEntity<?> atualizar(@PathVariable String id, @RequestBody ClienteRequest clienteRequest){
+        return clienteService.update(id, clienteRequest);
+    }
+
 }
