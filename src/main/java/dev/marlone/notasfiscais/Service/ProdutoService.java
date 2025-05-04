@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -61,5 +62,34 @@ public class ProdutoService {
         }
         produto.setEstoque(produto.getEstoque() - quantidade);
         produtoRepository.save(produto);
+    }
+
+    //Put
+    public ResponseEntity<?> put(String id, ProdutoRequest request){
+        if (request == null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
+        Optional<ProdutoModel> produto = produtoRepository.findById(id);
+        if (produto.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+
+        ProdutoModel produtoModel = produto.get();
+
+        if (request.nome() != null && !request.nome().isEmpty()) {
+            produtoModel.setNome(request.nome());
+        }
+        if (request.descricao() != null && !request.descricao().isEmpty()) {
+            produtoModel.setDescricao(request.descricao());
+        }
+        if (request.preco() != 0 && request.preco() > 0){
+            produtoModel.setPreco(request.preco());
+        }
+        if (request.estoque() != 0 && request.estoque() > 0){
+            produtoModel.setEstoque(produtoModel.getEstoque()+request.estoque());
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produtoModel));
+
     }
 }

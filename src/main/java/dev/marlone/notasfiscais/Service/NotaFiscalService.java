@@ -22,7 +22,7 @@ public class NotaFiscalService {
     private ClienteService clienteService;
     private ProdutoService produtoService;
 
-    //criar
+    //Criar
     public ResponseEntity<?> criar(NotaFiscalRequest request){
         if (request == null || request.items() == null || request.items().isEmpty()) {
             return ResponseEntity.badRequest().body("Requisição inválida.");

@@ -38,4 +38,10 @@ public class ProdutoController {
         return produtoService.deleteById(id);
     }
 
+    //Put
+    @PutMapping("/{id}")
+    @Operation(summary = "Atualizar um produto", description = "enpoint para atualizar um produto com base no ID")
+    public ResponseEntity<?> atualizar(@PathVariable String id, @RequestBody ProdutoRequest produtoRequest){
+        return produtoService.put(id,produtoRequest);
+    }
 }
